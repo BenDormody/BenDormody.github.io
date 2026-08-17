@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Not found — Ben Dormody</title>
+  <meta name="robots" content="noindex">
+  <script>
+    (function () {
+      var t;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <main style="display:grid; place-items:center; min-height:80vh; text-align:center; padding: var(--space-8);">
+    <div>
+      <p class="kicker">404</p>
+      <h1 style="margin-top: var(--space-3);">The box is empty.</h1>
+      <p class="lede" style="margin-top: var(--space-4); margin-inline:auto;">Whatever page you were looking for was never put in it — or has been moved somewhere better.</p>
+      <div style="margin-top: var(--space-8);">
+        <a class="btn btn--primary" href="/">Back to the start</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

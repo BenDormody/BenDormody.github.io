@@ -1,0 +1,102 @@
+/* ============================================================
+   tokens.css — design system custom properties
+   Theme: "The Analyst & The Poet" — paper-and-ink editorial
+   ============================================================ */
+
+:root {
+  /* -- type families -- */
+  --font-serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Inter", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", monospace;
+
+  /* -- type scale (fluid) -- */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+  --text-2xl: clamp(2rem, 1.5rem + 2.5vw, 3.25rem);
+  --text-hero: clamp(2.5rem, 1.75rem + 4vw, 4.75rem);
+
+  /* -- spacing (spacious editorial scale) -- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* -- layout -- */
+  --container: 72rem;
+  --container-prose: 44rem;
+  --radius: 10px;
+  --radius-sm: 6px;
+
+  /* -- motion: the analyst snaps, the poet drifts -- */
+  --ease-snap: cubic-bezier(0.2, 0, 0, 1);
+  --ease-drift: cubic-bezier(0.33, 0.9, 0.4, 1);
+  --dur-fast: 180ms;
+  --dur-med: 320ms;
+  --dur-slow: 700ms;
+
+  /* ---- light theme (paper & ink) ---- */
+  --paper: #faf7f2;
+  --paper-raised: #ffffff;
+  --paper-sunken: #f1ece3;
+  --ink: #14181d;
+  --ink-soft: #4c545e;
+  --ink-faint: #8b8f96;
+  --line: rgba(20, 24, 29, 0.14);
+  --line-soft: rgba(20, 24, 29, 0.08);
+  --shadow: 0 1px 2px rgba(20, 24, 29, 0.05), 0 8px 28px rgba(20, 24, 29, 0.07);
+  --shadow-lift: 0 2px 4px rgba(20, 24, 29, 0.06), 0 16px 44px rgba(20, 24, 29, 0.12);
+
+  /* category accents — AA on paper for text use */
+  --c-pitch: #22705a;      /* sports analytics */
+  --c-signal: #2257c4;     /* software */
+  --c-graphite: #46505c;   /* research */
+  --c-oxblood: #8a2f42;    /* philosophy */
+  --c-amber: #8a5a12;      /* poetry */
+
+  /* soft fills for chips/washes */
+  --c-pitch-wash: rgba(34, 112, 90, 0.1);
+  --c-signal-wash: rgba(34, 87, 196, 0.09);
+  --c-graphite-wash: rgba(70, 80, 92, 0.1);
+  --c-oxblood-wash: rgba(138, 47, 66, 0.09);
+  --c-amber-wash: rgba(138, 90, 18, 0.1);
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  /* ---- dark theme (manuscript at night: warm near-black) ---- */
+  --paper: #131110;
+  --paper-raised: #1c1917;
+  --paper-sunken: #0e0c0b;
+  --ink: #ece7df;
+  --ink-soft: #b3aca1;
+  --ink-faint: #7d776e;
+  --line: rgba(236, 231, 223, 0.16);
+  --line-soft: rgba(236, 231, 223, 0.08);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 28px rgba(0, 0, 0, 0.45);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.5), 0 16px 44px rgba(0, 0, 0, 0.6);
+
+  --c-pitch: #5cc39a;
+  --c-signal: #86a9ff;
+  --c-graphite: #a3adba;
+  --c-oxblood: #e08a9b;
+  --c-amber: #dcaa54;
+
+  --c-pitch-wash: rgba(92, 195, 154, 0.12);
+  --c-signal-wash: rgba(134, 169, 255, 0.11);
+  --c-graphite-wash: rgba(163, 173, 186, 0.12);
+  --c-oxblood-wash: rgba(224, 138, 155, 0.11);
+  --c-amber-wash: rgba(220, 170, 84, 0.12);
+
+  color-scheme: dark;
+}

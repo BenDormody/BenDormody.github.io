@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Film Ranker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --gold: #d4af37;
+        --deep-red: #8b0000;
+        --cream: #f5f5dc;
+        --charcoal: #1a1a1a;
+        --dark-blue: #0a0e27;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Crimson Text", serif;
+        background: linear-gradient(
+          135deg,
+          var(--dark-blue) 0%,
+          var(--charcoal) 100%
+        );
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--cream);
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.03) 2px,
+          rgba(0, 0, 0, 0.03) 4px
+        );
+        pointer-events: none;
+        opacity: 0.4;
+        z-index: 1;
+      }
+      .container {
+        max-width: 600px;
+        width: 100%;
+        position: relative;
+        z-index: 2;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 60px;
+        animation: fadeInDown 0.8s ease-out;
+      }
+      .title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(3rem, 8vw, 5rem);
+        letter-spacing: 0.15em;
+        color: var(--gold);
+        text-shadow:
+          2px 2px 0 var(--deep-red),
+          4px 4px 0 rgba(0, 0, 0, 0.3);
+        margin-bottom: 15px;
+        line-height: 1;
+      }
+      .subtitle {
+        font-size: 1.1rem;
+        font-style: italic;
+        color: var(--cream);
+        opacity: 0.85;
+        letter-spacing: 0.05em;
+      }
+      .subtitle a {
+        color: var(--gold);
+        text-decoration: none;
+        border-bottom: 1px solid var(--gold);
+        transition: opacity 0.3s;
+      }
+      .subtitle a:hover {
+        opacity: 0.7;
+      }
+      .card {
+        background: rgba(26, 26, 26, 0.8);
+        backdrop-filter: blur(10px);
+        border: 2px solid var(--gold);
+        box-shadow:
+          0 0 30px rgba(212, 175, 55, 0.2),
+          inset 0 0 60px rgba(0, 0, 0, 0.3);
+        padding: 50px 40px;
+        position: relative;
+        animation: fadeInUp 0.8s ease-out 0.2s backwards;
+      }
+      .card::before,
+      .card::after {
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border: 3px solid var(--gold);
+      }
+      .card::before {
+        top: -2px;
+        left: -2px;
+        border-right: none;
+        border-bottom: none;
+      }
+      .card::after {
+        bottom: -2px;
+        right: -2px;
+        border-left: none;
+        border-top: none;
+      }
+      .input-group {
+        margin-bottom: 35px;
+        animation: fadeIn 0.8s ease-out 0.4s backwards;
+      }
+      label {
+        display: block;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.8rem;
+        letter-spacing: 0.1em;
+        color: var(--gold);
+        margin-bottom: 12px;
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 16px 20px;
+        font-family: "Crimson Text", serif;
+        font-size: 1.1rem;
+        background: rgba(245, 245, 220, 0.95);
+        border: 2px solid var(--gold);
+        color: var(--charcoal);
+        transition: all 0.3s;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      input[type="text"]:focus {
+        outline: none;
+        background: var(--cream);
+        box-shadow:
+          0 0 0 3px rgba(212, 175, 55, 0.3),
+          inset 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      input[type="text"]::placeholder {
+        color: rgba(26, 26, 26, 0.5);
+        font-style: italic;
+      }
+      .button-container {
+        text-align: center;
+        animation: fadeIn 0.8s ease-out 0.6s backwards;
+      }
+      button {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.6rem;
+        letter-spacing: 0.15em;
+        padding: 18px 50px;
+        background: linear-gradient(135deg, var(--gold) 0%, #b8941e 100%);
+        color: var(--charcoal);
+        border: 3px solid var(--gold);
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow:
+          0 4px 15px rgba(212, 175, 55, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+      button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+      button:hover::before {
+        left: 100%;
+      }
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow:
+          0 6px 25px rgba(212, 175, 55, 0.6),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      }
+      button:active {
+        transform: translateY(0);
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .comparison-container {
+        display: none;
+        animation: fadeIn 0.5s ease-out;
+      }
+      .comparison-container.active {
+        display: block;
+      }
+      .role-selection-container {
+        display: none;
+        animation: fadeIn 0.5s ease-out;
+      }
+      .role-selection-container.active {
+        display: block;
+      }
+      .role-subtitle {
+        text-align: center;
+        font-size: 1.1rem;
+        color: var(--cream);
+        opacity: 0.8;
+        margin-bottom: 30px;
+        font-style: italic;
+      }
+      .roles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      .role-option {
+        background: rgba(245, 245, 220, 0.05);
+        border: 2px solid var(--gold);
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .role-option::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, var(--gold) 0%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .role-option:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+      }
+      .role-option:hover::before {
+        opacity: 0.1;
+      }
+      .role-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.5rem;
+        letter-spacing: 0.05em;
+        color: var(--gold);
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 1;
+      }
+      .role-count {
+        font-size: 1rem;
+        color: var(--cream);
+        opacity: 0.7;
+        position: relative;
+        z-index: 1;
+      }
+      .progress {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+        color: var(--gold);
+        font-style: italic;
+      }
+      .films-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .film-option {
+        background: rgba(245, 245, 220, 0.05);
+        border: 2px solid var(--gold);
+        padding: 25px 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .film-option::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, var(--gold) 0%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .film-option:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+      }
+      .film-option:hover::before {
+        opacity: 0.1;
+      }
+      .film-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.5rem;
+        letter-spacing: 0.05em;
+        color: var(--gold);
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 1;
+      }
+      .film-year {
+        font-size: 1rem;
+        color: var(--cream);
+        opacity: 0.7;
+        position: relative;
+        z-index: 1;
+      }
+      .not-watched-button {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 0.1em;
+        padding: 8px 16px;
+        background: var(--gold);
+        color: var(--charcoal);
+        border: 2px solid var(--gold);
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 15px;
+        position: relative;
+        z-index: 1;
+      }
+      .not-watched-button:hover {
+        background: var(--cream);
+        transform: scale(1.05);
+      }
+      .not-watched-button:active {
+        transform: scale(0.95);
+      }
+
+      /* RESULTS */
+      .results-container {
+        display: none;
+        animation: fadeIn 0.5s ease-out;
+      }
+      .results-container.active {
+        display: block;
+      }
+      .results-header {
+        text-align: center;
+        margin-bottom: 24px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+      }
+      .results-person-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2rem, 6vw, 3rem);
+        letter-spacing: 0.12em;
+        color: var(--gold);
+        text-shadow:
+          2px 2px 0 var(--deep-red),
+          3px 3px 0 rgba(0, 0, 0, 0.3);
+        line-height: 1;
+        margin-bottom: 6px;
+      }
+      .results-role-label {
+        font-size: 0.95rem;
+        font-style: italic;
+        color: var(--cream);
+        opacity: 0.65;
+        letter-spacing: 0.08em;
+      }
+      .ranked-list {
+        list-style: none;
+        columns: 1;
+        column-gap: 20px;
+        margin-bottom: 24px;
+      }
+      .ranked-list.two-columns {
+        columns: 2;
+      }
+      .ranked-item {
+        background: rgba(245, 245, 220, 0.05);
+        border-left: 3px solid var(--gold);
+        padding: 7px 12px;
+        margin-bottom: 7px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s;
+        break-inside: avoid;
+        animation: slideInLeft 0.4s ease-out backwards;
+      }
+      .ranked-item:hover {
+        background: rgba(245, 245, 220, 0.1);
+        padding-left: 16px;
+      }
+      .rank-number {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.3rem;
+        color: var(--gold);
+        min-width: 30px;
+        opacity: 0.8;
+      }
+      .rank-details {
+        flex: 1;
+        min-width: 0;
+      }
+      .rank-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--cream);
+        margin-bottom: 1px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .rank-year {
+        font-size: 0.8rem;
+        color: var(--cream);
+        opacity: 0.5;
+      }
+      .results-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .results-actions button {
+        flex: 1;
+        min-width: 130px;
+        font-size: 1.1rem;
+        padding: 14px 20px;
+      }
+      .share-button {
+        background: linear-gradient(
+          135deg,
+          rgba(212, 175, 55, 0.12) 0%,
+          rgba(212, 175, 55, 0.04) 100%
+        ) !important;
+        color: var(--gold) !important;
+        border-color: var(--gold) !important;
+      }
+      .share-button:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(212, 175, 55, 0.28) 0%,
+          rgba(212, 175, 55, 0.12) 100%
+        ) !important;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.3) !important;
+      }
+      .toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px);
+        background: var(--gold);
+        color: var(--charcoal);
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.1rem;
+        letter-spacing: 0.1em;
+        padding: 14px 28px;
+        opacity: 0;
+        transition: all 0.35s ease;
+        pointer-events: none;
+        z-index: 1000;
+        white-space: nowrap;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      .error-message {
+        background: rgba(139, 0, 0, 0.2);
+        border: 2px solid var(--deep-red);
+        color: var(--cream);
+        padding: 15px;
+        margin-bottom: 20px;
+        text-align: center;
+        display: none;
+        animation: shake 0.5s;
+      }
+      .error-message.active {
+        display: block;
+      }
+      .back-link {
+        text-align: center;
+        margin-top: 30px;
+        font-style: italic;
+        font-size: 1rem;
+      }
+      .back-link a {
+        color: var(--cream);
+        opacity: 0.6;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(245, 245, 220, 0.4);
+        transition: opacity 0.3s;
+      }
+      .back-link a:hover {
+        opacity: 1;
+      }
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-10px);
+        }
+        75% {
+          transform: translateX(10px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1 class="title">Film Ranker</h1>
+        <p class="subtitle">
+          made by you, powered by
+          <a href="https://www.themoviedb.org/" target="_blank">TMDB</a>
+        </p>
+      </div>
+
+      <div class="card" id="inputCard">
+        <div class="error-message" id="errorMessage"></div>
+        <div class="input-group">
+          <label for="director">Name</label>
+          <input
+            type="text"
+            id="director"
+            placeholder="e.g. Christopher Nolan"
+            autocomplete="off"
+          />
+        </div>
+        <div class="button-container">
+          <button id="startButton">Start Ranking</button>
+        </div>
+      </div>
+
+      <div class="card role-selection-container" id="roleSelectionCard">
+        <div
+          class="results-person-name"
+          id="rolePersonName"
+          style="text-align: center; margin-bottom: 10px"
+        ></div>
+        <p class="role-subtitle">
+          Multiple credits found — which films do you want to rank?
+        </p>
+        <div class="roles-grid" id="rolesGrid"></div>
+      </div>
+
+      <div class="card comparison-container" id="comparisonCard">
+        <div class="progress" id="progressText"></div>
+        <div
+          id="debugRankings"
+          style="
+            display: none;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(245, 245, 220, 0.05);
+            border: 1px solid var(--gold);
+          "
+        >
+          <div
+            style="
+              font-family: &quot;Bebas Neue&quot;, sans-serif;
+              font-size: 1.3rem;
+              color: var(--gold);
+              margin-bottom: 15px;
+              text-align: center;
+            "
+          >
+            Current Rankings
+          </div>
+          <ol
+            id="debugList"
+            style="
+              list-style-position: inside;
+              color: var(--cream);
+              font-size: 1rem;
+            "
+          ></ol>
+        </div>
+        <div class="films-grid" id="filmsGrid"></div>
+      </div>
+
+      <div class="card results-container" id="resultsCard">
+        <div class="results-header">
+          <div class="results-person-name" id="resultsPersonName"></div>
+          <div class="results-role-label" id="resultsRoleLabel"></div>
+        </div>
+        <ol class="ranked-list" id="rankedList"></ol>
+        <div class="results-actions">
+          <button class="share-button" id="shareButton">
+            &#128203; Share List
+          </button>
+          <button id="restartButton">Rank Another</button>
+        </div>
+      </div>
+
+      <p class="back-link"><a href="../">&larr; Ben Dormody &mdash; portfolio</a></p>
+    </div>
+
+    <div class="toast" id="toast">Copied to clipboard!</div>
+
+    <script>
+      const DEBUG_MODE = false;
+      const TMDB_API_KEY = "c9019a0e1e7cb43e5248ad011a1c746f";
+      const TMDB_BASE = "https://api.themoviedb.org/3";
+
+      let films = [],
+        rankings = [];
+      let currentFilmIndex = 1,
+        searchLow = 0,
+        searchHigh = 0;
+      let totalComparisons = 0,
+        estimatedComparisons = 0;
+      let currentPersonId = null,
+        availableRoles = {};
+      let currentPersonName = "",
+        currentRole = "";
+
+      const el = {
+        director: document.getElementById("director"),
+        startButton: document.getElementById("startButton"),
+        inputCard: document.getElementById("inputCard"),
+        roleSelectionCard: document.getElementById("roleSelectionCard"),
+        rolesGrid: document.getElementById("rolesGrid"),
+        rolePersonName: document.getElementById("rolePersonName"),
+        comparisonCard: document.getElementById("comparisonCard"),
+        resultsCard: document.getElementById("resultsCard"),
+        errorMessage: document.getElementById("errorMessage"),
+        progressText: document.getElementById("progressText"),
+        filmsGrid: document.getElementById("filmsGrid"),
+        rankedList: document.getElementById("rankedList"),
+        restartButton: document.getElementById("restartButton"),
+        shareButton: document.getElementById("shareButton"),
+        debugRankings: document.getElementById("debugRankings"),
+        debugList: document.getElementById("debugList"),
+        resultsPersonName: document.getElementById("resultsPersonName"),
+        resultsRoleLabel: document.getElementById("resultsRoleLabel"),
+        toast: document.getElementById("toast"),
+      };
+
+      el.director.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") el.startButton.click();
+      });
+
+      el.startButton.addEventListener("click", async () => {
+        const name = el.director.value.trim();
+        if (!name) {
+          showError("Please enter a name");
+          return;
+        }
+        hideError();
+        el.startButton.disabled = true;
+        el.startButton.textContent = "Searching...";
+        try {
+          await searchPersonAndShowRoles(name);
+        } catch (err) {
+          showError(err.message);
+          el.startButton.disabled = false;
+          el.startButton.textContent = "Start Ranking";
+        }
+      });
+
+      async function searchPersonAndShowRoles(personName) {
+        const sr = await fetch(
+          `${TMDB_BASE}/search/person?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(personName)}`,
+        );
+        if (!sr.ok)
+          throw new Error("Failed to search. Check your internet connection.");
+        const sd = await sr.json();
+        if (!sd.results || !sd.results.length)
+          throw new Error("Person not found. Please try a different name.");
+
+        const person = sd.results[0];
+        currentPersonId = person.id;
+        currentPersonName = person.name || personName;
+
+        const cr = await fetch(
+          `${TMDB_BASE}/person/${currentPersonId}/movie_credits?api_key=${TMDB_API_KEY}`,
+        );
+        if (!cr.ok) throw new Error("Failed to fetch credits.");
+        const cd = await cr.json();
+
+        availableRoles = {};
+        if (cd.cast && cd.cast.length) {
+          const af = cd.cast.filter((c) => c.release_date);
+          if (af.length) availableRoles["Actor"] = af;
+        }
+        if (cd.crew && cd.crew.length) {
+          const rg = {};
+          cd.crew.forEach((c) => {
+            if (!c.release_date) return;
+            if (!rg[c.job]) rg[c.job] = [];
+            rg[c.job].push(c);
+          });
+          Object.keys(rg).forEach((job) => {
+            if (rg[job].length >= 2) availableRoles[job] = rg[job];
+          });
+        }
+        if (!Object.keys(availableRoles).length)
+          throw new Error("No sufficient credits found for this person.");
+
+        if (Object.keys(availableRoles).length === 1) {
+          currentRole = Object.keys(availableRoles)[0];
+          await loadFilmsForRole(currentRole);
+        } else {
+          showRoleSelection();
+        }
+      }
+
+      function showRoleSelection() {
+        el.inputCard.style.display = "none";
+        el.rolePersonName.textContent = currentPersonName;
+        el.roleSelectionCard.classList.add("active");
+        const sorted = Object.entries(availableRoles).sort(
+          (a, b) => b[1].length - a[1].length,
+        );
+        el.rolesGrid.innerHTML = sorted
+          .map(
+            ([role, credits]) =>
+              `<div class="role-option" data-role="${role}">
+            <div class="role-name">${role}</div>
+            <div class="role-count">${credits.length} film${credits.length !== 1 ? "s" : ""}</div>
+          </div>`,
+          )
+          .join("");
+        document.querySelectorAll(".role-option").forEach((opt) => {
+          opt.addEventListener("click", async () => {
+            currentRole = opt.dataset.role;
+            el.roleSelectionCard.classList.remove("active");
+            try {
+              await loadFilmsForRole(currentRole);
+            } catch (err) {
+              showError(err.message);
+              el.roleSelectionCard.classList.add("active");
+            }
+          });
+        });
+      }
+
+      async function loadFilmsForRole(role) {
+        const credits = availableRoles[role];
+        const filmMap = new Map();
+        credits.forEach((credit) => {
+          const title = credit.title || credit.original_title;
+          const year = credit.release_date
+            ? credit.release_date.split("-")[0]
+            : "N/A";
+          let existing = null;
+          for (const [k, v] of filmMap.entries()) {
+            if (v.title === title) {
+              existing = { k, v };
+              break;
+            }
+          }
+          if (existing) {
+            if (existing.v.year !== year && year !== "N/A") {
+              filmMap.delete(existing.k);
+              filmMap.set(`${title}-${existing.v.year}/${year}`, {
+                title,
+                year: `${existing.v.year}/${year}`,
+                id: credit.id,
+              });
+            }
+          } else {
+            filmMap.set(`${title}-${year}`, { title, year, id: credit.id });
+          }
+        });
+        films = Array.from(filmMap.values());
+        films.sort((a, b) => {
+          const ya = a.year === "N/A" ? 0 : parseInt(a.year.split("/")[0]);
+          const yb = b.year === "N/A" ? 0 : parseInt(b.year.split("/")[0]);
+          return yb - ya;
+        });
+        if (films.length < 2)
+          throw new Error("Not enough films to rank (need at least 2).");
+        startComparison();
+      }
+
+      function startComparison() {
+        rankings = [films[0]];
+        currentFilmIndex = 1;
+        totalComparisons = 0;
+        searchLow = 0;
+        searchHigh = 0;
+        estimatedComparisons = Math.ceil(
+          films.length * Math.log2(films.length),
+        );
+        el.inputCard.style.display = "none";
+        el.roleSelectionCard.classList.remove("active");
+        el.comparisonCard.classList.add("active");
+        updateDebugDisplay();
+        showNextComparison();
+      }
+
+      function updateDebugDisplay() {
+        if (!DEBUG_MODE) {
+          el.debugRankings.style.display = "none";
+          return;
+        }
+        el.debugRankings.style.display = "block";
+        el.debugList.innerHTML = rankings
+          .map((f) => `<li>${f.title} (${f.year})</li>`)
+          .join("");
+      }
+
+      function showNextComparison() {
+        if (currentFilmIndex >= films.length) {
+          showResults();
+          return;
+        }
+        const current = films[currentFilmIndex];
+        if (searchLow > searchHigh) {
+          rankings.splice(searchLow, 0, current);
+          updateDebugDisplay();
+          currentFilmIndex++;
+          searchLow = 0;
+          searchHigh = rankings.length - 1;
+          showNextComparison();
+          return;
+        }
+        const mid = Math.floor((searchLow + searchHigh) / 2);
+        const compare = rankings[mid];
+        el.progressText.textContent = DEBUG_MODE
+          ? `Film ${currentFilmIndex + 1} of ${films.length} • Comparison ${totalComparisons + 1} of ~${estimatedComparisons}`
+          : `Film ${currentFilmIndex + 1} of ${films.length}`;
+        el.filmsGrid.innerHTML = `
+          <div class="film-option" data-choice="current">
+            <div class="film-title">${current.title}</div>
+            <div class="film-year">${current.year}</div>
+            <button class="not-watched-button" data-skip="current">Haven't Watched</button>
+          </div>
+          <div class="film-option" data-choice="ranked">
+            <div class="film-title">${compare.title}</div>
+            <div class="film-year">${compare.year}</div>
+            <button class="not-watched-button" data-skip="ranked">Haven't Watched</button>
+          </div>`;
+        document.querySelectorAll(".film-option").forEach((opt) => {
+          opt.addEventListener("click", (e) => {
+            if (e.target.classList.contains("not-watched-button")) return;
+            handleComparison(opt.dataset.choice);
+          });
+        });
+        document.querySelectorAll(".not-watched-button").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            handleNotWatched(btn.dataset.skip);
+          });
+        });
+      }
+
+      function handleComparison(choice) {
+        totalComparisons++;
+        const mid = Math.floor((searchLow + searchHigh) / 2);
+        if (choice === "current") {
+          searchHigh = mid - 1;
+        } else {
+          searchLow = mid + 1;
+        }
+        updateDebugDisplay();
+        showNextComparison();
+      }
+
+      function getRoleLabel(role) {
+        const map = {
+          Actor: "acted films",
+          Director: "directed films",
+          Producer: "produced films",
+          Writer: "written films",
+          Screenplay: "screenplay films",
+          Composer: "composed films",
+          Editor: "edited films",
+        };
+        return map[role] || `${role.toLowerCase()} films`;
+      }
+
+      function showResults() {
+        el.comparisonCard.classList.remove("active");
+        el.resultsCard.classList.add("active");
+        el.resultsPersonName.textContent = currentPersonName;
+        el.resultsRoleLabel.textContent = `ranking of ${getRoleLabel(currentRole)}`;
+        el.rankedList.className =
+          rankings.length > 10 ? "ranked-list two-columns" : "ranked-list";
+        el.rankedList.innerHTML = rankings
+          .map(
+            (film, i) =>
+              `<li class="ranked-item" style="animation-delay:${i * 0.04}s">
+            <div class="rank-number">#${i + 1}</div>
+            <div class="rank-details">
+              <div class="rank-title">${film.title}</div>
+              <div class="rank-year">${film.year}</div>
+            </div>
+          </li>`,
+          )
+          .join("");
+      }
+
+      function showToast(msg) {
+        el.toast.textContent = msg;
+        el.toast.classList.add("show");
+        setTimeout(() => el.toast.classList.remove("show"), 2500);
+      }
+
+      el.shareButton.addEventListener("click", () => {
+        const roleLabel = getRoleLabel(currentRole);
+        const header = `🎬 ${currentPersonName} — ${roleLabel}`;
+        const divider = "─".repeat(32);
+        const list = rankings
+          .map((f, i) => `${i + 1}. ${f.title} (${f.year})`)
+          .join("\n");
+        const text = `${header}\n${divider}\n${list}\n\nRanked with Film Ranker`;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => showToast("Copied to clipboard!"))
+            .catch(() => fallbackCopy(text));
+        } else {
+          fallbackCopy(text);
+        }
+      });
+
+      function fallbackCopy(text) {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.cssText = "position:fixed;top:-9999px;left:-9999px;opacity:0;";
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy");
+          showToast("Copied to clipboard!");
+        } catch {
+          showToast("Copy failed — try manually!");
+        }
+        document.body.removeChild(ta);
+      }
+
+      el.restartButton.addEventListener("click", () => {
+        films = [];
+        rankings = [];
+        currentFilmIndex = 1;
+        searchLow = 0;
+        searchHigh = 0;
+        totalComparisons = 0;
+        estimatedComparisons = 0;
+        currentPersonId = null;
+        availableRoles = {};
+        currentPersonName = "";
+        currentRole = "";
+        el.director.value = "";
+        el.startButton.disabled = false;
+        el.startButton.textContent = "Start Ranking";
+        el.resultsCard.classList.remove("active");
+        el.roleSelectionCard.classList.remove("active");
+        el.inputCard.style.display = "block";
+        hideError();
+      });
+
+      function handleNotWatched(which) {
+        if (currentFilmIndex >= films.length) return;
+        const mid = Math.floor((searchLow + searchHigh) / 2);
+        if (which === "current") {
+          films.splice(currentFilmIndex, 1);
+          searchLow = 0;
+          searchHigh = rankings.length - 1;
+        } else {
+          rankings.splice(mid, 1);
+          if (!rankings.length) {
+            rankings = [films[currentFilmIndex]];
+            currentFilmIndex++;
+            searchLow = 0;
+            searchHigh = rankings.length - 1;
+          } else {
+            searchHigh = rankings.length - 1;
+            if (searchLow > searchHigh) searchLow = searchHigh;
+          }
+        }
+        updateDebugDisplay();
+        if (currentFilmIndex >= films.length) {
+          showResults();
+        } else {
+          showNextComparison();
+        }
+      }
+
+      function showError(msg) {
+        el.errorMessage.textContent = msg;
+        el.errorMessage.classList.add("active");
+      }
+      function hideError() {
+        el.errorMessage.classList.remove("active");
+      }
+    </script>
+  </body>
+</html>
