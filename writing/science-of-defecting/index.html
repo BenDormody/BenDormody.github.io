@@ -77,6 +77,25 @@
         <p>Two people facing a payoff table that rewards trust nearly always cooperate. Five people facing the same table often don't, even though nothing in the table has changed. This paper models that shift as an n-player stag hunt: each added player compounds every doubt about the others, so cooperation that is rational in pairs becomes irrational at five. It then applies the model to the 2026 U.S. midterms, through the $5,000 &ldquo;Trump dividend,&rdquo; the one-point Senate races, Dan Osborn's independent run in Nebraska, and the mid-decade redistricting fight. Written on the eve of the election, with poll figures current to November 1&ndash;2, 2026.</p>
       </div>
     </section>
+    <section class="section--tight">
+      <div class="container figure-block">
+        <div class="figure-block__stage">
+          <div data-hl="hunt" data-hl-input="#hunt-n" data-hl-read="#hunt-read"></div>
+          <div class="figure-control">
+            <label class="kicker" for="hunt-n">Players</label>
+            <input id="hunt-n" type="range" min="2" max="12" step="1" value="4" aria-describedby="hunt-read">
+            <ol class="figure-control__ticks" aria-hidden="true">
+              <li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li><li>9</li><li>10</li><li>11</li><li>12</li>
+            </ol>
+            <p class="figure-read" aria-live="polite"><b id="hunt-read">4 players · holds 0.73 · needs 0.70 · cooperate</b></p>
+          </div>
+        </div>
+        <div class="figure-block__text">
+          <p class="kicker">The model, in miniature</p>
+          <p>Each player imagines the others defect with probability 0.10, so the chance the coalition holds is 0.90<sup>n&minus;1</sup>. That is the pillar. With R&nbsp;=&nbsp;10, T&nbsp;=&nbsp;7 and S&nbsp;=&nbsp;0, cooperating needs at least 0.70, the ring around it. Use the slider to set the number of players, from 2 to 12. The pillar sinks with each one, and at five it falls through the ring and everyone steps off the dais to the safe payoff. The payoffs never change.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
@@ -91,6 +110,8 @@
     </div>
   </footer>
 
+  <script src="../../assets/js/vendor/hairline.min.js"></script>
+  <script src="../../assets/js/figures.js"></script>
   <script src="../../assets/js/main.js"></script>
 </body>
 </html>

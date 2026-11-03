@@ -720,6 +720,48 @@
   margin: -6% auto;
 }
 
+.figure-block__stage [data-hl="hunt"] {
+  --hairline-hi: var(--c-oxblood);
+}
+
+/* a figure's own control: a stepped slider with its values printed under it */
+.figure-control {
+  max-width: 30rem;
+  margin: var(--space-6) auto 0;
+}
+
+.figure-control input[type="range"] {
+  display: block;
+  width: 100%;
+  height: 2.75rem;
+  margin: var(--space-1) 0 0;
+  accent-color: var(--c-oxblood);
+  cursor: pointer;
+}
+
+/* the thumb stops short of the track's ends, so the numbers are inset to sit under it */
+.figure-control__ticks {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--space-1) 0 0;
+  padding: 0 0.55rem;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-faint);
+}
+
+.figure-control__ticks li {
+  width: 0;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.figure-control .figure-read {
+  margin-top: var(--space-3);
+}
+
 .figure-block__text p + p {
   margin-top: var(--space-4);
 }

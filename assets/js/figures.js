@@ -6,6 +6,7 @@
    data-hl-rest="text"                    what that read-out says at rest
    data-hl-lap                            walk the figure's tour once on load
    data-hl-intensity="0.6"                0…1, how strongly it answers
+   data-hl-input="#id"                    a range input that sets the figure's number
 
    Figures mount only when they come near the viewport, and share
    one frame loop that sleeps whenever nothing is moving.
@@ -24,11 +25,14 @@
 
     const out = el.dataset.hlRead && document.querySelector(el.dataset.hlRead);
     const rest = el.dataset.hlRest;
+    const input = el.dataset.hlInput && document.querySelector(el.dataset.hlInput);
+    const level = input && (() => (input.value - input.min) / (input.max - input.min));
     const options = {
-      intensity: el.dataset.hlIntensity ? Number(el.dataset.hlIntensity) : undefined,
+      intensity: input ? level() : el.dataset.hlIntensity ? Number(el.dataset.hlIntensity) : undefined,
       onRead: out ? (text) => { out.textContent = text === "rest" && rest ? rest : text; } : undefined,
     };
     const fig = make(el, options);
+    if (input) input.addEventListener("input", () => fig.update({ intensity: level() }));
 
     // a hero figure shows what it does once, then waits for a hand
     if ("hlLap" in el.dataset && !reduced) {
