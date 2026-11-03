@@ -84,6 +84,19 @@
     </section>
 
     <section class="section--tight">
+      <div class="container figure-block">
+        <div class="figure-block__stage">
+          <div data-hl="ratings" data-hl-read="#elo-read" data-hl-rest="season end · duel 360"></div>
+        </div>
+        <div class="figure-block__text">
+          <p class="kicker">The model, in miniature</p>
+          <p>Seven simulated players start level at 1,000. Move across the board to scrub through a season of 360 duels: each result moves the winner up and the loser down by up to K&nbsp;=&nbsp;32 points, more when the result is a surprise, and the ratings pull apart toward each player's true ability. The bright pillar is the leader at that point in the season.</p>
+          <p class="figure-read"><b id="elo-read">season end · duel 360</b></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section--tight">
       <div class="prose">
         <p class="kicker">Why it matters</p>
         <p style="margin-top: var(--space-4);">For recruitment: a dribbler's raw success rate can be farmed against weak defenders; an Elo rating cannot. For opposition analysis: defensive Elo surfaces players who quietly beat elite attackers even when their raw numbers look unremarkable. The method needs only duel outcomes to compute, so it extends naturally to other inverse-metric pairs — pressing vs. ball-carrying, aerial duels, shooting vs. goalkeeping.</p>
@@ -103,6 +116,8 @@
     </div>
   </footer>
 
+  <script src="../../assets/js/vendor/hairline.min.js"></script>
+  <script src="../../assets/js/figures.js"></script>
   <script src="../../assets/js/main.js"></script>
 </body>
 </html>

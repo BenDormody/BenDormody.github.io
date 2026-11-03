@@ -97,8 +97,8 @@
     <main id="main">
       <!-- hero -->
       <section class="hero">
-        <canvas class="hero__canvas" id="elo-hero" aria-hidden="true"></canvas>
-        <div class="container hero__content">
+        <div class="container hero__content hero__grid">
+          <div class="hero__text">
           <p class="kicker">Sports analyst · Mathematician · Writer</p>
           <h1 style="margin-top: var(--space-4)">Benjamin Dormody</h1>
           <p class="lede">
@@ -124,6 +124,11 @@
               >BenDormody@gmail.com</a
             >
           </div>
+          </div>
+          <figure class="hero__figure">
+            <div data-hl="pitch" data-hl-lap data-hl-read="#pitch-read" data-hl-rest="hover the pitch"></div>
+            <figcaption class="hero__read">zone · <b id="pitch-read">hover the pitch</b></figcaption>
+          </figure>
         </div>
       </section>
 
@@ -290,9 +295,7 @@
                   (proprietary)
                 </li>
                 <li>
-                  <a href="https://github.com/BenDormody/daily-football-puzzle"
-                    >Daily Football Puzzle</a
-                  >
+                  <a href="work/pitch-puzzle/">Pitch Puzzle</a>
                 </li>
                 <li>
                   <a href="https://knowitallnewyorker.com"
@@ -337,7 +340,8 @@
 
     <script src="assets/js/data.js"></script>
     <script src="assets/js/cards.js"></script>
+    <script src="assets/js/vendor/hairline.min.js"></script>
+    <script src="assets/js/figures.js"></script>
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/hero.js"></script>
   </body>
 </html>

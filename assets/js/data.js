@@ -126,17 +126,20 @@ const PROJECTS = [
 
   /* ---------- software ---------- */
   {
-    id: "daily-football-puzzle",
-    title: "Daily Football Puzzle",
+    id: "pitch-puzzle",
+    title: "Pitch Puzzle",
     category: "software",
     career: false,
     skills: ["JavaScript", "React"],
-    tags: ["React 18", "Webpack", "CSS Grid"],
+    tags: ["React", "Vite", "lz-string"],
     overview:
-      "A daily tactical puzzle: study a real pitch scenario on FIFA-standard coordinates, pick the optimal pass, and get the tactical reasoning back. Pass, move, shot, and through-ball puzzle types with a deterministic daily rotation.",
-    outcome: "Web game · React",
+      "A web app where football coaches build tactical puzzles — set up a formation, record the correct sequence of passes, dribbles and runs — and share them as a single link. The whole puzzle is compressed into the URL itself (no backend, no signup); players solve it step-by-step with a limited mistake budget and get a Wordle-style shareable result.",
+    outcome: "Web app · React",
     duel: true,
-    links: { repo: "https://github.com/BenDormody/daily-football-puzzle" },
+    links: {
+      page: "work/pitch-puzzle/",
+      repo: "https://github.com/BenDormody/daily-football-puzzle",
+    },
     featured: true,
   },
   {
@@ -211,12 +214,24 @@ const PROJECTS = [
     links: { page: "writing/schrodinger-moral-disengagement/" },
     featured: true,
   },
+  {
+    id: "defecting-paper",
+    title: "The Science of Defecting and Current U.S. Politics",
+    category: "philosophy",
+    career: false,
+    skills: [],
+    tags: ["Game theory", "Stag hunt", "Baudrillard", "2026 midterms"],
+    overview:
+      "Why cooperation collapses as groups grow: a many-player stag hunt in which every added player compounds the doubt, applied to the 2026 midterms, from the $5,000 \u201cTrump dividend\u201d to the redistricting wars.",
+    outcome: "Paper · November 2026",
+    links: { page: "writing/science-of-defecting/" },
+  },
 ];
 
 /* Featured order on the home page */
 const FEATURED_IDS = [
   "blackhawks-pricing",
-  "daily-football-puzzle",
+  "pitch-puzzle",
   "knowitall",
   "schrodinger-essay",
 ];

@@ -457,6 +457,27 @@
   color: var(--ink-soft);
 }
 
+.doc-figure {
+  margin: var(--space-8) 0 0;
+}
+
+.doc-figure img,
+.doc-figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-sunken);
+}
+
+.doc-figure figcaption {
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-soft);
+}
+
 .pdf-embed {
   margin-top: var(--space-8);
 }
@@ -580,13 +601,50 @@
   overflow: hidden;
 }
 
-.hero__canvas {
-  position: absolute;
-  inset: 0;
+.hero__grid {
+  display: grid;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+@media (min-width: 60rem) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: var(--space-8);
+  }
+}
+
+.hero__figure {
+  margin: 0;
+}
+
+.hero__figure [data-hl] {
+  --hairline-plate: var(--paper);
+  --hairline-hi: var(--c-pitch);
   width: 100%;
-  height: 100%;
-  opacity: 0.5;
-  pointer-events: none;
+  max-width: 36rem;
+  /* the drawing sits in the middle of a 5:4 frame; trim the empty bands above and below it */
+  margin: -10% auto;
+}
+
+.hero__read,
+.figure-read {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+
+.hero__read {
+  text-align: center;
+  margin-top: var(--space-2);
+}
+
+.hero__read b,
+.figure-read b {
+  font-weight: 500;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
 }
 
 .hero__content {
@@ -621,4 +679,51 @@
   flex-wrap: wrap;
   gap: var(--space-3);
   margin-top: var(--space-8);
+}
+
+/* ---------------- line figures (Hairline, see figures.js) ---------------- */
+
+[data-hl] {
+  --hairline-plate: var(--paper-raised);
+  --hairline-hi: var(--ink);
+  --hairline-edge: #a49e95;
+  --hairline-mid: #cbc5bb;
+  --hairline-lo: #e7e1d7;
+  --hairline-stroke: 1;
+}
+
+[data-theme="dark"] [data-hl] {
+  --hairline-edge: #7a736a;
+  --hairline-mid: #4f4942;
+  --hairline-lo: #2f2b27;
+}
+
+/* a figure beside its explanation (the Elo page) */
+.figure-block {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+@media (min-width: 52rem) {
+  .figure-block {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-12);
+  }
+}
+
+.figure-block__stage [data-hl] {
+  --hairline-plate: var(--paper);
+  --hairline-hi: var(--c-graphite);
+  width: 100%;
+  max-width: 30rem;
+  margin: -6% auto;
+}
+
+.figure-block__text p + p {
+  margin-top: var(--space-4);
+}
+
+.figure-block__text .kicker + p {
+  margin-top: var(--space-4);
 }
