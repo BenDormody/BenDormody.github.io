@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Set Piece Analyzer — Ben Dormody</title>
+  <meta name="description" content="A set-piece tool for football coaches covering all 24 teams at UEFA Euro 2024: corner, free-kick and throw-in set-ups, delivery zones, and 360 playback.">
+  <meta property="og:title" content="Set Piece Analyzer">
+  <meta property="og:description" content="Corner, free-kick and throw-in set-ups, delivery zones and 360 playback for every team at UEFA Euro 2024.">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="../../assets/img/set-piece-analyzer/setup.jpg">
+  <script>
+    (function () {
+      var t;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inter:wght@400;500;600;650;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/tokens.css">
+  <link rel="stylesheet" href="../../assets/css/base.css">
+  <link rel="stylesheet" href="../../assets/css/components.css">
+  <link rel="stylesheet" href="../../assets/css/animations.css">
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+</head>
+<body data-root="../../">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="nav__brand" href="../../">ben dormody portfolio</a>
+      <nav aria-label="Main">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="../../">Home</a></li>
+          <li><a class="nav__link" href="../" aria-current="page">Work</a></li>
+          <li><a class="nav__link" href="../../research/">Research</a></li>
+          <li><a class="nav__link" href="../../writing/">Writing</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <header class="doc-head">
+      <div class="container">
+        <p class="kicker" style="color: var(--c-pitch);">Web App · Sports Analytics</p>
+        <h1 style="margin-top: var(--space-4); max-width: 24ch;">Set Piece Analyzer</h1>
+        <div class="doc-head__meta">
+          <span>UEFA Euro 2024</span>
+          <span>·</span>
+          <span>All 24 teams</span>
+          <span>·</span>
+          <span>StatsBomb events and 360</span>
+        </div>
+        <div class="doc-actions">
+          <a class="btn btn--primary" href="app/">Open the analyzer</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="section--tight" style="padding-top: var(--space-8);">
+      <div class="prose">
+        <p class="kicker">Overview</p>
+        <p style="margin-top: var(--space-4);">A set-piece tool for coaches. Pick a team and see how it sets up at corners, crossed free kicks and throw-ins, attacking and defending, then play any of them back from 360 data.</p>
+        <figure class="doc-figure">
+          <video src="../../assets/img/set-piece-analyzer/demo.mp4" poster="../../assets/img/set-piece-analyzer/setup.jpg" autoplay loop muted playsinline aria-label="Screen recording of the analyzer: a defensive corner set-up, delivery zones, a corner played back, and throw-ins by third"></video>
+          <figcaption>Set-ups, delivery zones, 360 playback and throw-ins by third.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section--tight">
+      <div class="prose">
+        <p class="kicker">Set-ups and roles</p>
+        <p style="margin-top: var(--space-4);">Each team's average set-up comes from the 360 frame at the moment of delivery. Players are matched to slots across frames, and each slot takes a role from where it stands: contactors, blockers and edge players in attack; markers, zonals and post players in defence.</p>
+        <figure class="doc-figure">
+          <img src="../../assets/img/set-piece-analyzer/setup.jpg" alt="Georgia's average corner defence: seven zonal players in a line in front of goal, with a key of guessed roles." loading="lazy" width="1600" height="950">
+          <figcaption>Georgia defending corners, with most players holding zones.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section--tight">
+      <div class="prose">
+        <p class="kicker">Delivery zones</p>
+        <p style="margin-top: var(--space-4);">An overlay shows where deliveries land, the xG they produce and the first contacts they win, on the zones used by the Impect set piece site.</p>
+        <figure class="doc-figure">
+          <img src="../../assets/img/set-piece-analyzer/zones.jpg" alt="England's corner deliveries as a heat overlay on the box zones, with the share of deliveries written on each zone." loading="lazy" width="1600" height="950">
+          <figcaption>Where England's corners land.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section--tight">
+      <div class="prose">
+        <p class="kicker">Throw-ins by third</p>
+        <p style="margin-top: var(--space-4);">Throw-ins open on all three thirds with their key rates. Clicking a third opens its own average set-up, roles and delivery zones around the thrower.</p>
+        <figure class="doc-figure">
+          <img src="../../assets/img/set-piece-analyzer/thirds.jpg" alt="The pitch split into defending, middle and attacking thirds, each showing throw-ins, retained possession, first contact, progressed and thrown forward." loading="lazy" width="1600" height="950">
+          <figcaption>England's throw-ins across the three thirds.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section--tight">
+      <div class="prose">
+        <p class="kicker">360 playback</p>
+        <p style="margin-top: var(--space-4);">Any set piece with enough 360 frames plays back, with the selected team as circles coloured by role and the opposition as grey diamonds.</p>
+        <figure class="doc-figure">
+          <img src="../../assets/img/set-piece-analyzer/playback.jpg" alt="A corner mid-playback with both teams on the pitch, the ball in flight, and a key naming the two teams." loading="lazy" width="1600" height="950">
+          <figcaption>A corner played back from its 360 frames.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section--tight">
+      <div class="prose">
+        <p class="kicker">Technical notes</p>
+        <ul style="margin-top: var(--space-4); padding-left: 1.2em; line-height: 1.75;">
+          <li><strong>Roles are guessed</strong> — 360 frames show positions but not player identities, so roles come from where players stand at delivery.</li>
+          <li><strong>Naming players</strong> — a player can only be named by touching the ball, because each frame's event names its player. Following players between frames carries that name back to where they started, so player views show runs that ended in a first contact or shot.</li>
+          <li><strong>Players out of shot</strong> — a player who appears later is placed from their next sighting, outside the camera's view at that moment, and drawn as an estimate.</li>
+          <li><strong>Averaging throw-ins</strong> — each frame is slid along the touchline so shapes are averaged relative to the thrower, within each third.</li>
+          <li><strong>Built with</strong> — Python for the data; plain JavaScript and SVG on the core of <a href="https://github.com/lucasmarkes/hairline" target="_blank" rel="noopener">Hairline</a> for the pitch. Heights from Transfermarkt and Wikidata.</li>
+        </ul>
+        <p style="margin-top: var(--space-6);"><a href="https://github.com/statsbomb/open-data" target="_blank" rel="noopener"><img src="../../assets/img/statsbomb.png" alt="StatsBomb" width="120" height="19" style="display: inline-block; background: #fff; padding: 3px 5px; border-radius: 4px;"></a></p>
+        <p style="font-size: var(--text-sm);">Data: StatsBomb open data, UEFA Euro 2024.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__links">
+        <a href="mailto:BenDormody@gmail.com">Email</a>
+        <a href="https://github.com/BenDormody" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://knowitallnewyorker.com" target="_blank" rel="noopener">Know It All New Yorker</a>
+        <a href="../../assets/pdf/ben-dormody-cv.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+      </div>
+      <p class="footer__note">Hand-built. No frameworks. Set in Fraunces, Inter &amp; JetBrains Mono.</p>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

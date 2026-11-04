@@ -41,6 +41,22 @@ const PROJECTS = [
 
   /* ---------- sports analytics ---------- */
   {
+    id: "set-piece-analyzer",
+    title: "Set Piece Analyzer",
+    category: "sports-analytics",
+    career: false,
+    skills: ["Python", "Pandas", "StatsBomb", "JavaScript", "HTML/CSS"],
+    tags: ["StatsBomb", "360 data", "Python", "JavaScript"],
+    overview:
+      "A set-piece tool covering all 24 teams at UEFA Euro 2024. It shows each team's set-ups at corners, crossed free kicks and throw-ins, with guessed player roles and delivery-zone overlays, and plays them back from StatsBomb 360 data.",
+    outcome: "Web app · StatsBomb open data",
+    duel: false,
+    links: {
+      page: "work/set-piece-analyzer/",
+      live: "work/set-piece-analyzer/app/",
+    },
+  },
+  {
     id: "blackhawks-pricing",
     title: "Dynamic Ticket Pricing Dashboard & RAG Assistant",
     category: "sports-analytics",
