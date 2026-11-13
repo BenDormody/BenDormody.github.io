@@ -205,6 +205,11 @@
   flex-grow: 1;
 }
 
+.card__note {
+  font-size: var(--text-xs);
+  color: var(--ink-faint);
+}
+
 .card__chips {
   display: flex;
   flex-wrap: wrap;

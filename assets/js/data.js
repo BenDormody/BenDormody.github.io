@@ -9,6 +9,8 @@
    proprietary: true — renders a "details on request" note instead of repo
    career: true — built during a professional role (club/team/firm)
    skills: normalized skill names used by the work-page skill filter
+   note: a line shown under the overview (e.g. a fan-project disclaimer)
+   home page: add the id to FEATURED_IDS at the bottom
    ============================================================ */
 
 const CATEGORY_META = {
@@ -70,7 +72,6 @@ const PROJECTS = [
     proprietary: true,
     duel: false,
     links: {},
-    featured: true,
   },
   {
     id: "westham-setpiece",
@@ -156,7 +157,21 @@ const PROJECTS = [
       page: "work/pitch-puzzle/",
       repo: "https://github.com/BenDormody/daily-football-puzzle",
     },
-    featured: true,
+  },
+  {
+    id: "poke-0",
+    title: "Pok\u00e9-0",
+    category: "software",
+    career: false,
+    skills: ["JavaScript", "HTML/CSS", "Python"],
+    tags: ["JavaScript", "Simulation", "Live site"],
+    overview:
+      "A draft-and-simulate game in basketball, football and soccer, modelled on 82-0. The engine turns each Pok\u00e9mon's base stats and height into sport skills, rates it at every position, and scores a team on its lineup and its weakest skill, so a player out of position costs the team. League difficulty is set from simulated drafts.",
+    note: "Fan project. Not affiliated with Nintendo, Game Freak, or The Pok\u00e9mon Company. Data and sprites from Pok\u00e9API.",
+    outcome: "Live game \u00b7 poke-0.com",
+    links: {
+      live: "https://poke-0.com",
+    },
   },
   {
     id: "knowitall",
@@ -172,7 +187,6 @@ const PROJECTS = [
       live: "https://knowitallnewyorker.com",
       repo: "https://github.com/BenDormody/KnowItAllNewYork",
     },
-    featured: true,
   },
   {
     id: "filmranker",
@@ -228,7 +242,6 @@ const PROJECTS = [
       "An essay on Bandura's mechanisms of moral disengagement, arguing that willful ignorance — choosing not to know — does its moral work before any of those mechanisms are needed.",
     outcome: "Essay · working draft",
     links: { page: "writing/schrodinger-moral-disengagement/" },
-    featured: true,
   },
   {
     id: "defecting-paper",
@@ -246,8 +259,7 @@ const PROJECTS = [
 
 /* Featured order on the home page */
 const FEATURED_IDS = [
+  "set-piece-analyzer",
+  "elo-dissertation",
   "blackhawks-pricing",
-  "pitch-puzzle",
-  "knowitall",
-  "schrodinger-essay",
 ];

@@ -66,6 +66,7 @@
         </div>
         <h3 class="card__title">${title}</h3>
         <p class="card__overview">${esc(p.overview)}</p>
+        ${p.note ? `<p class="card__note">${esc(p.note)}</p>` : ""}
         <div class="card__chips">${p.tags.map((t) => `<span class="chip">${esc(t)}</span>`).join("")}</div>
         <div class="card__footer">
           <span class="card__outcome">${esc(p.outcome)}</span>
